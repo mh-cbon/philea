@@ -30,8 +30,8 @@ Options:
   -h --help             Show this screen.
   -v --version          Show version.
   -q --quiet            Less verbose.
-  -e --exclude pattern  Exclude files from being processed [default: *vendors/*].
-  -p --pattern pattern  Which kind of files to process [default: **.go].
+  -e --exclude pattern  Exclude files from being processed [default: *vendor/*].
+  -p --pattern pattern  Which kind of files to process [default: **/*.go].
 
 Notes:
   cmd can contain %s, it will be replaced by the current file.

@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"regexp"
 	"strings"
 	"sync"
 
 	"github.com/docopt/docopt.go"
 	"github.com/mh-cbon/verbose"
+	"github.com/mattn/go-zglob"
 )
 
 var logger = verbose.Auto()
@@ -31,8 +31,8 @@ Options:
   -h --help             Show this screen.
   -v --version          Show version.
   -q --quiet            Less verbose.
-  -e --exclude pattern  Exclude files from being processed [default: *vendors/*].
-  -p --pattern pattern  Which kind of files to process [default: **.go].
+  -e --exclude pattern  Exclude files from being processed [default: *vendor/*].
+  -p --pattern pattern  Which kind of files to process [default: **/*.go].
 
 Notes:
   cmd can contain %s, it will be replaced by the current file.
@@ -65,7 +65,7 @@ Examples:
 	excludeRe, err := getExlcudeRe(exclude, false)
 	exitWithError(err)
 	logger.Println("excludeRe=", excludeRe)
-	paths, err := filepath.Glob(wd + "/" + pattern)
+	paths, err := zglob.Glob(wd + "/" + pattern)
 	logger.Println("paths=", paths)
 
 	if len(paths) == 0 {
@@ -87,9 +87,8 @@ Examples:
 			wg.Add(1)
 			go func(path string, cmd string) {
 				out, err := executeACommand(path, cmd)
-				if err == nil {
-					outs = append(outs, printOut(cmd, string(out), path, wd)) // racy ?
-				} else {
+				outs = append(outs, printOut(cmd, string(out), path, wd))
+				if err != nil {
 					errs = append(errs, err) // racy ?
 				}
 				wg.Done()
@@ -177,7 +176,7 @@ func getCmds(arguments map[string]interface{}) []string {
 }
 
 func getExclude(arguments map[string]interface{}) string {
-	exclude := "*vendors/*"
+	exclude := "*vendor/*"
 	if val, ok := arguments["--exclude"].(string); ok {
 		exclude = val
 	} else {
@@ -189,7 +188,7 @@ func getExclude(arguments map[string]interface{}) string {
 }
 
 func getPattern(arguments map[string]interface{}) string {
-	pattern := "**.go"
+	pattern := "**/*.go"
 	if val, ok := arguments["--pattern"].(string); ok {
 		pattern = val
 	} else {
