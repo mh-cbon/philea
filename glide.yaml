@@ -1,4 +1,7 @@
 package: github.com/mh-cbon/philea
+scripts:
+  preversion: git fetch --tags && philea "go vet %s" "go fmt %s"
+  postversion: git push && git push --tags
 import:
 - package: github.com/docopt/docopt.go
   version: ^0.6.2
