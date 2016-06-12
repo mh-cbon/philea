@@ -10,8 +10,8 @@ import (
 	"sync"
 
 	"github.com/docopt/docopt.go"
-	"github.com/mh-cbon/verbose"
 	"github.com/mattn/go-zglob"
+	"github.com/mh-cbon/verbose"
 )
 
 var logger = verbose.Auto()
@@ -21,8 +21,8 @@ func main() {
 
 Usage:
   philea [options] <cmds>...
-  philea [-q|--quiet] [-e <pattern> | --exclude=<pattern>] <cmds>...
-  philea [-q|--quiet] [-p <pattern> | --pattern=<pattern>] <cmds>...
+  philea [-q |--quiet] [-e <pattern> | --exclude=<pattern>] <cmds>...
+  philea [-q |--quiet] [-p <pattern> | --pattern=<pattern>] <cmds>...
   philea -q | --quiet
   philea -h | --help
   philea -v | --version

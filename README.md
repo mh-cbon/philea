@@ -7,8 +7,8 @@ Apply commands on globbed files
 ```sh
 mkdir -p $GOPATH/github.com/mh-cbon
 cd $GOPATH/github.com/mh-cbon
-cd philea
 git clone https://github.com/mh-cbon/philea.git
+cd philea
 glide install
 go install
 ```
@@ -20,8 +20,8 @@ Philea - Apply commands on globbed files
 
 Usage:
   philea [options] <cmds>...
-  philea [-q|--quiet] [-e <pattern> | --exclude=<pattern>] <cmds>...
-  philea [-q|--quiet] [-p <pattern> | --pattern=<pattern>] <cmds>...
+  philea [-q |--quiet] [-e <pattern> | --exclude=<pattern>] <cmds>...
+  philea [-q |--quiet] [-p <pattern> | --pattern=<pattern>] <cmds>...
   philea -q | --quiet
   philea -h | --help
   philea -v | --version
