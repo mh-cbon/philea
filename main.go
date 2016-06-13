@@ -11,8 +11,8 @@ import (
 
 	"github.com/docopt/docopt.go"
 	"github.com/mattn/go-zglob"
-	"github.com/mh-cbon/verbose"
 	"github.com/mh-cbon/philea/GenVersionFile"
+	"github.com/mh-cbon/verbose"
 )
 
 var logger = verbose.Auto()
