@@ -12,6 +12,7 @@ import (
 	"github.com/docopt/docopt.go"
 	"github.com/mattn/go-zglob"
 	"github.com/mh-cbon/verbose"
+	"github.com/mh-cbon/philea/GenVersionFile"
 )
 
 var logger = verbose.Auto()
@@ -45,7 +46,7 @@ Examples:
 
   `
 
-	arguments, err := docopt.Parse(usage, nil, true, "Philea 0.0.1", false)
+	arguments, err := docopt.Parse(usage, nil, true, "Philea - "+GenVersionFile.Version(), false)
 	logger.Println(arguments)
 	exitWithError(err)
 
