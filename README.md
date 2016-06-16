@@ -4,6 +4,8 @@ Apply commands on globbed files
 
 # Install
 
+You can grab a pre-built binary file in the [releases page](https://github.com/mh-cbon/philea/releases)
+
 ```sh
 mkdir -p $GOPATH/github.com/mh-cbon
 cd $GOPATH/github.com/mh-cbon
