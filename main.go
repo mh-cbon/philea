@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"sync"
-	"path/filepath"
 
 	"github.com/docopt/docopt.go"
 	"github.com/mattn/go-zglob"
@@ -54,18 +54,18 @@ Examples:
 	logger.Println(arguments)
 	exitWithError(err)
 
-	cmds       := getCmds(arguments)
-	exclude    := getExclude(arguments)
-	pattern    := getPattern(arguments)
-	quiet      := isQuiet(arguments)
-	serie      := isSerie(arguments)
-	dry        := isDry(arguments)
-	changeDir  := getWd(arguments)
+	cmds := getCmds(arguments)
+	exclude := getExclude(arguments)
+	pattern := getPattern(arguments)
+	quiet := isQuiet(arguments)
+	serie := isSerie(arguments)
+	dry := isDry(arguments)
+	changeDir := getWd(arguments)
 
-  if len(changeDir)>0 {
-    err := os.Chdir(changeDir)
+	if len(changeDir) > 0 {
+		err := os.Chdir(changeDir)
 		exitWithError(err)
-  }
+	}
 
 	wd, err := os.Getwd()
 	logger.Println("wd=" + wd)
@@ -92,43 +92,43 @@ Examples:
 		exitWithError(errors.New("Pattern has excluded all files!"))
 	}
 
-  errs := make([]error, 0)
-  outs := make([]string, 0)
-  if dry {
-    for _, path := range filteredPaths {
-      for _, cmd := range cmds {
-        fmt.Println(forgeCmd(path, cmd, wd))
-      }
-    }
-  } else {
-    if serie == false {
-      var wg sync.WaitGroup
-      for _, p := range filteredPaths {
-        for _, c := range cmds {
-          wg.Add(1)
-          go func(path string, cmd string) {
-            out, err := executeACommand(path, cmd, wd)
-            outs = append(outs, printOut(cmd, string(out), path, wd))
-            if err != nil {
-              errs = append(errs, err) // racy ?
-            }
-            wg.Done()
-          }(p, c)
-        }
-      }
-      wg.Wait()
-    } else {
-      for _, path := range filteredPaths {
-        for _, cmd := range cmds {
-          out, err := executeACommand(path, cmd, wd)
-          outs = append(outs, printOut(cmd, string(out), path, wd))
-          if err != nil {
-            errs = append(errs, err)
-          }
-        }
-      }
-    }
-  }
+	errs := make([]error, 0)
+	outs := make([]string, 0)
+	if dry {
+		for _, path := range filteredPaths {
+			for _, cmd := range cmds {
+				fmt.Println(forgeCmd(path, cmd, wd))
+			}
+		}
+	} else {
+		if serie == false {
+			var wg sync.WaitGroup
+			for _, p := range filteredPaths {
+				for _, c := range cmds {
+					wg.Add(1)
+					go func(path string, cmd string) {
+						out, err := executeACommand(path, cmd, wd)
+						outs = append(outs, printOut(cmd, string(out), path, wd))
+						if err != nil {
+							errs = append(errs, err) // racy ?
+						}
+						wg.Done()
+					}(p, c)
+				}
+			}
+			wg.Wait()
+		} else {
+			for _, path := range filteredPaths {
+				for _, cmd := range cmds {
+					out, err := executeACommand(path, cmd, wd)
+					outs = append(outs, printOut(cmd, string(out), path, wd))
+					if err != nil {
+						errs = append(errs, err)
+					}
+				}
+			}
+		}
+	}
 
 	if quiet == false {
 		for _, out := range outs {
@@ -144,7 +144,7 @@ Examples:
 	}
 	if len(errs) > 0 {
 		os.Exit(1)
-  }
+	}
 }
 
 func exitWithError(err error) {
@@ -177,27 +177,27 @@ func executeACommand(path string, cmd string, wd string) ([]byte, error) {
 		return make([]byte, 0), err
 	}
 	oCmd := exec.Command(bin, parts[1:]...)
-  oCmd.Dir = wd
-  oCmd.Env = os.Environ()
+	oCmd.Dir = wd
+	oCmd.Env = os.Environ()
 	return oCmd.CombinedOutput()
 }
 
-func forgeCmd (path string, cmd string, wd string) string {
-  logger.Printf("forgeCmd in  cmd='%s' path='%s'", cmd, path)
+func forgeCmd(path string, cmd string, wd string) string {
+	logger.Printf("forgeCmd in  cmd='%s' path='%s'", cmd, path)
 	dir := filepath.Dir(path)
-  path = strings.Replace(path, wd+string(os.PathSeparator), "./", -1)
+	path = strings.Replace(path, wd+string(os.PathSeparator), "./", -1)
 	path = strings.Replace(path, wd, "./", -1)
-  dir = strings.Replace(dir, wd+string(os.PathSeparator), "./", -1)
+	dir = strings.Replace(dir, wd+string(os.PathSeparator), "./", -1)
 	dir = strings.Replace(dir, wd, "./", -1)
-  if dir == "" {
-    dir = "."
-  }
-  dname := filepath.Base(dir)
-  cmd = strings.Replace(cmd, "%dname", dname, -1)
+	if dir == "" {
+		dir = "."
+	}
+	dname := filepath.Base(dir)
+	cmd = strings.Replace(cmd, "%dname", dname, -1)
 	cmd = strings.Replace(cmd, "%s", path, -1)
 	cmd = strings.Replace(cmd, "%d", dir, -1)
-  logger.Printf("forgeCmd out cmd='%s' path='%s'", cmd, path)
-  return cmd
+	logger.Printf("forgeCmd out cmd='%s' path='%s'", cmd, path)
+	return cmd
 }
 
 func filterPaths(paths []string, exclude *regexp.Regexp) []string {
