@@ -12,11 +12,11 @@ import (
 
 	"github.com/docopt/docopt.go"
 	"github.com/mattn/go-zglob"
-	"github.com/mh-cbon/philea/GenVersionFile"
 	"github.com/mh-cbon/verbose"
 )
 
 var logger = verbose.Auto()
+var VERSION = "0.0.0"
 
 func main() {
 	usage := `Philea - Apply commands on globbed files
@@ -50,7 +50,7 @@ Examples:
 
   `
 
-	arguments, err := docopt.Parse(usage, nil, true, "Philea - "+GenVersionFile.Version(), false)
+	arguments, err := docopt.Parse(usage, nil, true, "Philea - "+VERSION, false)
 	logger.Println(arguments)
 	exitWithError(err)
 
