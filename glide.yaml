@@ -3,6 +3,7 @@ scripts:
   preversion: |
     git fetch --tags \
     && philea "go vet %s" "go fmt %s" \
+    && go test \
     && rm-glob -r build/ \
     && rm-glob -r assets/ \
     && build-them-all build main.go -o "build/&os-&arch/&pkg" --ldflags "-X main.VERSION=!newversion!"
