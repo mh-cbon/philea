@@ -37,9 +37,12 @@ Options:
   -d --dry                Show commands only, do not run anything.
 
 Notes:
-  cmd can contain %s, it will be replaced by the current file.
-  cmd can contain %d, it will be replaced by the directory path of the current file.
-  cmd can contain %dname, it will be replaced by the directory name of the current file.
+  cmd can contain
+    %s, it will be replaced by the current file path.
+    %d, it will be replaced by the path of the directory of the current file.
+    %dname, it will be replaced by the directory name of the current file.
+    %f, it will be replaced by the name of the current file.
+    %fname, it will be replaced by the name of the current file minus its extension.
   philea will process all files and all commands and return an exit code=1 if any fails.
 
 Examples:
@@ -47,4 +50,15 @@ Examples:
     It will process all go files, except those in vendors, and apply
     cat, then grep an each file.
   philea "cat %s" "grep t %s" "ls -al %d" "echo '%dname'"
+```
+
+# Example
+
+```sh
+$ philea --pattern main.go "echo %fname" "echo %f" "echo %dname" "echo %d" "echo %s"
+echo ./: ./
+echo main.go: main.go
+echo main: main
+echo ./main.go: ./main.go
+echo .: .
 ```
