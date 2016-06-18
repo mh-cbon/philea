@@ -14,14 +14,14 @@ func TestOnePathOneCmd(t *testing.T) {
 	cmd := exec.Command(bin, args...)
 
 	out, err := cmd.CombinedOutput()
-  mustSucceed(t, cmd, err)
-  sOut := string(out)
-  expected := `echo ./main_test.go-./-.: ./main_test.go-./-.
+	mustSucceed(t, cmd, err)
+	sOut := string(out)
+	expected := `echo ./main_test.go-./-.: ./main_test.go-./-.
 `
 
-  if sOut!=expected {
-    t.Errorf("Expected=%q, got=%q\n", expected, sOut)
-  }
+	if sOut != expected {
+		t.Errorf("Expected=%q, got=%q\n", expected, sOut)
+	}
 }
 
 func TestOnePathTwoCmds(t *testing.T) {
@@ -30,15 +30,15 @@ func TestOnePathTwoCmds(t *testing.T) {
 	cmd := exec.Command(bin, args...)
 
 	out, err := cmd.CombinedOutput()
-  mustSucceed(t, cmd, err)
-  sOut := string(out)
-  expected := `echo hello: hello
+	mustSucceed(t, cmd, err)
+	sOut := string(out)
+	expected := `echo hello: hello
 echo world: world
 `
 
-  if sOut!=expected {
-    t.Errorf("Expected=%q, got=%q\n", expected, sOut)
-  }
+	if sOut != expected {
+		t.Errorf("Expected=%q, got=%q\n", expected, sOut)
+	}
 }
 
 func TestTwoPathsOneCmd(t *testing.T) {
@@ -47,14 +47,14 @@ func TestTwoPathsOneCmd(t *testing.T) {
 	cmd := exec.Command(bin, args...)
 
 	out, err := cmd.CombinedOutput()
-  mustSucceed(t, cmd, err)
-  sOut := string(out)
-  expected := `echo ./main.go: ./main.go
+	mustSucceed(t, cmd, err)
+	sOut := string(out)
+	expected := `echo ./main.go: ./main.go
 echo ./main_test.go: ./main_test.go
 `
-  if sOut!=expected {
-    t.Errorf("Expected=%q, got=%q\n", expected, sOut)
-  }
+	if sOut != expected {
+		t.Errorf("Expected=%q, got=%q\n", expected, sOut)
+	}
 }
 
 func TestExecuteInSeries(t *testing.T) {
@@ -62,27 +62,27 @@ func TestExecuteInSeries(t *testing.T) {
 	bin := "go"
 	cmd := exec.Command(bin, args...)
 
-  elapsed := 0
-  shouldStop := false
-  go func () {
-    for {
-      select {
-      case <-time.After(1 * time.Millisecond):
-        if shouldStop {
-          break
-        } else {
-          elapsed++
-        }
-      }
-    }
-  }()
+	elapsed := 0
+	shouldStop := false
+	go func() {
+		for {
+			select {
+			case <-time.After(1 * time.Millisecond):
+				if shouldStop {
+					break
+				} else {
+					elapsed++
+				}
+			}
+		}
+	}()
 
 	_, err := cmd.CombinedOutput()
-  mustSucceed(t, cmd, err)
-  shouldStop = true
-  if elapsed < 3 * 1000 {
-    t.Errorf("Expected to take a long time\n")
-  }
+	mustSucceed(t, cmd, err)
+	shouldStop = true
+	if elapsed < 3*1000 {
+		t.Errorf("Expected to take a long time\n")
+	}
 }
 
 func TestExecuteInParallel(t *testing.T) {
@@ -90,27 +90,27 @@ func TestExecuteInParallel(t *testing.T) {
 	bin := "go"
 	cmd := exec.Command(bin, args...)
 
-  elapsed := 0
-  shouldStop := false
-  go func () {
-    for {
-      select {
-      case <-time.After(1 * time.Millisecond):
-        if shouldStop {
-          break
-        } else {
-          elapsed++
-        }
-      }
-    }
-  }()
+	elapsed := 0
+	shouldStop := false
+	go func() {
+		for {
+			select {
+			case <-time.After(1 * time.Millisecond):
+				if shouldStop {
+					break
+				} else {
+					elapsed++
+				}
+			}
+		}
+	}()
 
 	_, err := cmd.CombinedOutput()
-  mustSucceed(t, cmd, err)
-  shouldStop = true
-  if elapsed > 2 * 1000 {
-    t.Errorf("Expected to take a short time\n")
-  }
+	mustSucceed(t, cmd, err)
+	shouldStop = true
+	if elapsed > 2*1000 {
+		t.Errorf("Expected to take a short time\n")
+	}
 }
 
 func TestReportAFailure(t *testing.T) {
@@ -119,22 +119,22 @@ func TestReportAFailure(t *testing.T) {
 	cmd := exec.Command(bin, args...)
 
 	out, err := cmd.CombinedOutput()
-  if err == nil {
-    t.Errorf("Expected err!=nil, got err=%s\n", err)
-  }
-  if cmd.ProcessState.Success() == true {
-    t.Errorf("Expected success=false, got success=%t\n", true)
-  }
-  sOut := string(out)
-  expected := `
+	if err == nil {
+		t.Errorf("Expected err!=nil, got err=%s\n", err)
+	}
+	if cmd.ProcessState.Success() == true {
+		t.Errorf("Expected success=false, got success=%t\n", true)
+	}
+	sOut := string(out)
+	expected := `
 -------------
 There were 1 error(s)
 exec: "nopnopnop": executable file not found in $PATH
 exit status 1
 `
-  if sOut!=expected {
-    t.Errorf("Expected=%q, got=%q\n", expected, sOut)
-  }
+	if sOut != expected {
+		t.Errorf("Expected=%q, got=%q\n", expected, sOut)
+	}
 }
 
 func TestDry(t *testing.T) {
@@ -143,16 +143,16 @@ func TestDry(t *testing.T) {
 	cmd := exec.Command(bin, args...)
 
 	out, err := cmd.CombinedOutput()
-  mustSucceed(t, cmd, err)
-  sOut := string(out)
-  expected := `mkdir -p tests/main
+	mustSucceed(t, cmd, err)
+	sOut := string(out)
+	expected := `mkdir -p tests/main
 `
-  if sOut!=expected {
-    t.Errorf("Expected=%q, got=%q\n", expected, sOut)
-  }
-  if _, err := os.Stat("tests/main"); !os.IsNotExist(err) {
-    t.Errorf("Expected directory %s to not exist\n", "tests/main")
-  }
+	if sOut != expected {
+		t.Errorf("Expected=%q, got=%q\n", expected, sOut)
+	}
+	if _, err := os.Stat("tests/main"); !os.IsNotExist(err) {
+		t.Errorf("Expected directory %s to not exist\n", "tests/main")
+	}
 }
 
 func TestTokens(t *testing.T) {
@@ -161,28 +161,28 @@ func TestTokens(t *testing.T) {
 	cmd := exec.Command(bin, args...)
 
 	out, err := cmd.CombinedOutput()
-  mustSucceed(t, cmd, err)
-  sOut := string(out)
-  expected := `echo main
+	mustSucceed(t, cmd, err)
+	sOut := string(out)
+	expected := `echo main
 echo main.go
 echo ./main.go
 echo ./
 echo .
 `
-  if sOut!=expected {
-    t.Errorf("Expected=%q, got=%q\n", expected, sOut)
-  }
+	if sOut != expected {
+		t.Errorf("Expected=%q, got=%q\n", expected, sOut)
+	}
 }
 
-func mustSucceed (t *testing.T, cmd *exec.Cmd, err error) bool {
-  if err != nil {
-    fmt.Println(err)
-    t.Errorf("Expected err=nil, got err=%s\n", err)
-    return false
-  }
-  if cmd.ProcessState.Success() == false {
-    t.Errorf("Expected success=true, got success=%t\n", true)
-    return false
-  }
-  return true
+func mustSucceed(t *testing.T, cmd *exec.Cmd, err error) bool {
+	if err != nil {
+		fmt.Println(err)
+		t.Errorf("Expected err=nil, got err=%s\n", err)
+		return false
+	}
+	if cmd.ProcessState.Success() == false {
+		t.Errorf("Expected success=true, got success=%t\n", true)
+		return false
+	}
+	return true
 }

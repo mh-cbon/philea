@@ -94,18 +94,18 @@ Examples:
 		exitWithError(errors.New("Pattern has excluded all files!"))
 	}
 
-  cmds = forgeAllCommands(filteredPaths, cmds, wd)
+	cmds = forgeAllCommands(filteredPaths, cmds, wd)
 	errs := make([]error, 0)
 	if dry {
-    printCommands(cmds)
+		printCommands(cmds)
 	} else if serie {
-    errs = executeInSeries(cmds, wd, quiet)
-  } else {
-    errs = executeInParallel(cmds, wd, quiet)
-  }
+		errs = executeInSeries(cmds, wd, quiet)
+	} else {
+		errs = executeInParallel(cmds, wd, quiet)
+	}
 
 	if quiet == false {
-    printErrs(errs)
+		printErrs(errs)
 	}
 	if len(errs) > 0 {
 		os.Exit(1)
@@ -114,63 +114,63 @@ Examples:
 
 // printCommands prints forged command on stdout
 // given each cmd and paths
-func printCommands (cmds[]string) {
-  for _, cmd := range cmds {
-    fmt.Println(cmd)
-  }
+func printCommands(cmds []string) {
+	for _, cmd := range cmds {
+		fmt.Println(cmd)
+	}
 }
 
 // executeInParallel execute each cmds for each given path
 // prints command output to stdout asap, as one block
 // blocks until all commands are done
-func executeInParallel (cmds []string, wd string, quiet bool) []error {
+func executeInParallel(cmds []string, wd string, quiet bool) []error {
 	errs := make([]error, 0)
-  var wg sync.WaitGroup
-  for _, c := range cmds {
-    wg.Add(1)
-    go func(cmd string) {
-      out, err := executeACommand(cmd, wd)
-      if err==nil && quiet == false {
-        fOut := printOut(cmd, string(out))
-        fmt.Print(fOut)
-      }
-      if err != nil {
-        errs = append(errs, err) // racy ?
-      }
-      wg.Done()
-    }(c)
-  }
-  wg.Wait()
-  return errs
+	var wg sync.WaitGroup
+	for _, c := range cmds {
+		wg.Add(1)
+		go func(cmd string) {
+			out, err := executeACommand(cmd, wd)
+			if err == nil && quiet == false {
+				fOut := printOut(cmd, string(out))
+				fmt.Print(fOut)
+			}
+			if err != nil {
+				errs = append(errs, err) // racy ?
+			}
+			wg.Done()
+		}(c)
+	}
+	wg.Wait()
+	return errs
 }
 
 // executeInSeries execute each cmds for each given path
 // prints command output to stdout asap
-func executeInSeries (cmds []string, wd string, quiet bool) []error {
+func executeInSeries(cmds []string, wd string, quiet bool) []error {
 	errs := make([]error, 0)
-  for _, cmd := range cmds {
-    out, err := executeACommand(cmd, wd)
-    if err==nil && quiet == false {
-      fOut := printOut(cmd, string(out))
-      fmt.Print(fOut)
-    }
-    if err != nil {
-      errs = append(errs, err)
-    }
-  }
-  return errs
+	for _, cmd := range cmds {
+		out, err := executeACommand(cmd, wd)
+		if err == nil && quiet == false {
+			fOut := printOut(cmd, string(out))
+			fmt.Print(fOut)
+		}
+		if err != nil {
+			errs = append(errs, err)
+		}
+	}
+	return errs
 }
 
 // printErrs print errors on stdout
-func printErrs (errs []error) {
-  if len(errs) > 0 {
-    fmt.Println("")
-    fmt.Println("-------------")
-    fmt.Printf("There were %d error(s)\n", len(errs))
-    for _, err := range errs {
-      fmt.Println(err)
-    }
-  }
+func printErrs(errs []error) {
+	if len(errs) > 0 {
+		fmt.Println("")
+		fmt.Println("-------------")
+		fmt.Printf("There were %d error(s)\n", len(errs))
+		for _, err := range errs {
+			fmt.Println(err)
+		}
+	}
 }
 
 // exitWithError exits program is an error is provided
@@ -186,7 +186,7 @@ func exitWithError(err error) {
 // and preprending them with the corresponding command line
 func printOut(cmd string, out string) string {
 	ret := ""
-  out = strings.TrimSpace(out)
+	out = strings.TrimSpace(out)
 	for _, line := range strings.Split(out, "\n") {
 		ret = ret + cmd + ": " + line + "\n"
 	}
@@ -227,7 +227,7 @@ func forgeCmd(path string, cmd string, wd string) string {
 	if dir == "" {
 		dir = "."
 	}
-  f := filepath.Base(path)
+	f := filepath.Base(path)
 	fname := strings.Replace(f, filepath.Ext(f), "", -1)
 	dname := filepath.Base(dir)
 	cmd = strings.Replace(cmd, "%fname", fname, -1)
@@ -241,14 +241,14 @@ func forgeCmd(path string, cmd string, wd string) string {
 
 // forgeAllCommands forges all commands strings
 // given each path and cmd
-func forgeAllCommands (paths []string, cmds[]string, wd string) []string {
+func forgeAllCommands(paths []string, cmds []string, wd string) []string {
 	ret := make([]string, 0)
-  for _, path := range paths {
-    for _, cmd := range cmds {
-      ret = append(ret, forgeCmd(path, cmd, wd))
-    }
-  }
-  return ret
+	for _, path := range paths {
+		for _, cmd := range cmds {
+			ret = append(ret, forgeCmd(path, cmd, wd))
+		}
+	}
+	return ret
 }
 
 // filterPaths takes a list of path in input
