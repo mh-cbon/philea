@@ -130,7 +130,7 @@ func executeInParallel(cmds []string, wd string, quiet bool) []error {
 		wg.Add(1)
 		go func(cmd string) {
 			out, err := executeACommand(cmd, wd)
-			if err == nil && quiet == false {
+			if quiet == false {
 				fOut := printOut(cmd, string(out))
 				fmt.Print(fOut)
 			}
@@ -150,7 +150,7 @@ func executeInSeries(cmds []string, wd string, quiet bool) []error {
 	errs := make([]error, 0)
 	for _, cmd := range cmds {
 		out, err := executeACommand(cmd, wd)
-		if err == nil && quiet == false {
+		if quiet == false {
 			fOut := printOut(cmd, string(out))
 			fmt.Print(fOut)
 		}
