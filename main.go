@@ -133,10 +133,10 @@ func executeInParallel(cmds []string, wd string, quiet bool, short bool) []error
 		go func(cmd string) {
 			out, err := executeACommand(cmd, wd)
 			if quiet == false {
-        fOut := string(out)
-        if short==false {
-    			fOut = printOut(cmd, fOut)
-        }
+				fOut := string(out)
+				if short == false {
+					fOut = printOut(cmd, fOut)
+				}
 				fmt.Print(fOut)
 			}
 			if err != nil {
@@ -156,10 +156,10 @@ func executeInSeries(cmds []string, wd string, quiet bool, short bool) []error {
 	for _, cmd := range cmds {
 		out, err := executeACommand(cmd, wd)
 		if quiet == false {
-      fOut := string(out)
-      if short==false {
-  			fOut = printOut(cmd, fOut)
-      }
+			fOut := string(out)
+			if short == false {
+				fOut = printOut(cmd, fOut)
+			}
 			fmt.Print(fOut)
 		}
 		if err != nil {

@@ -2,7 +2,7 @@ package: github.com/mh-cbon/philea
 scripts:
   preversion: |
     666 git fetch --tags \
-    && philea "666 go vet %s" "666 go fmt %s" \
+    && philea "666 go vet %s" "666 go-fmt-fail %s" \
     && 666 go test \
     && 666 rm-glob -r build/ \
     && 666 rm-glob -r assets/ \
