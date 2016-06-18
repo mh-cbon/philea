@@ -126,12 +126,7 @@ func TestReportAFailure(t *testing.T) {
 		t.Errorf("Expected success=false, got success=%t\n", true)
 	}
 	sOut := string(out)
-	expected := `
--------------
-There were 1 error(s)
-exec: "nopnopnop": executable file not found in $PATH
-exit status 1
-`
+	expected := "nopnopnop: \n\n-------------\nThere were 1 error(s)\nexec: \"nopnopnop\": executable file not found in $PATH\nexit status 1\n"
 	if sOut != expected {
 		t.Errorf("Expected=%q, got=%q\n", expected, sOut)
 	}
