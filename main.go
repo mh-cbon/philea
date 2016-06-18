@@ -36,6 +36,7 @@ Options:
   -C --change-dir dir     Change current working directory.
   -S --series             Execute process in series instead of parallel.
   -d --dry                Show commands only, do not run anything.
+  -s --short              Shorter display, wihtout formatting.
 
 Notes:
   cmd can contain
@@ -62,6 +63,7 @@ Examples:
 	pattern := getPattern(arguments)
 	quiet := isQuiet(arguments)
 	serie := isSerie(arguments)
+	short := isShort(arguments)
 	dry := isDry(arguments)
 	changeDir := getWd(arguments)
 
@@ -99,9 +101,9 @@ Examples:
 	if dry {
 		printCommands(cmds)
 	} else if serie {
-		errs = executeInSeries(cmds, wd, quiet)
+		errs = executeInSeries(cmds, wd, quiet, short)
 	} else {
-		errs = executeInParallel(cmds, wd, quiet)
+		errs = executeInParallel(cmds, wd, quiet, short)
 	}
 
 	if quiet == false {
@@ -123,7 +125,7 @@ func printCommands(cmds []string) {
 // executeInParallel execute each cmds for each given path
 // prints command output to stdout asap, as one block
 // blocks until all commands are done
-func executeInParallel(cmds []string, wd string, quiet bool) []error {
+func executeInParallel(cmds []string, wd string, quiet bool, short bool) []error {
 	errs := make([]error, 0)
 	var wg sync.WaitGroup
 	for _, c := range cmds {
@@ -131,7 +133,10 @@ func executeInParallel(cmds []string, wd string, quiet bool) []error {
 		go func(cmd string) {
 			out, err := executeACommand(cmd, wd)
 			if quiet == false {
-				fOut := printOut(cmd, string(out))
+        fOut := string(out)
+        if short==false {
+    			fOut = printOut(cmd, fOut)
+        }
 				fmt.Print(fOut)
 			}
 			if err != nil {
@@ -146,12 +151,15 @@ func executeInParallel(cmds []string, wd string, quiet bool) []error {
 
 // executeInSeries execute each cmds for each given path
 // prints command output to stdout asap
-func executeInSeries(cmds []string, wd string, quiet bool) []error {
+func executeInSeries(cmds []string, wd string, quiet bool, short bool) []error {
 	errs := make([]error, 0)
 	for _, cmd := range cmds {
 		out, err := executeACommand(cmd, wd)
 		if quiet == false {
-			fOut := printOut(cmd, string(out))
+      fOut := string(out)
+      if short==false {
+  			fOut = printOut(cmd, fOut)
+      }
 			fmt.Print(fOut)
 		}
 		if err != nil {
@@ -335,6 +343,19 @@ func isQuiet(arguments map[string]interface{}) bool {
 		}
 	}
 	return quiet
+}
+
+// helper to get quiet argument passed on the command line
+func isShort(arguments map[string]interface{}) bool {
+	short := false
+	if isShort, ok := arguments["--short"].(bool); ok {
+		short = isShort
+	} else {
+		if isS, ok := arguments["-s"].(bool); ok {
+			short = isS
+		}
+	}
+	return short
 }
 
 // helper to get dry argument passed on the command line

@@ -35,6 +35,7 @@ Options:
   -C --change-dir         Change current working directory.
   -S --series             Execute process in series instead of parallel.
   -d --dry                Show commands only, do not run anything.
+  -s --short              Shorter display, wihtout formatting.
 
 Notes:
   cmd can contain
