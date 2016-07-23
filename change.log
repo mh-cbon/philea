@@ -1,5 +1,5 @@
 
-UNRELEASED
+0.0.12
 
   * packaging: add rpm/deb/msi support
   * README: update install section
@@ -77,6 +77,7 @@ UNRELEASED
 
   * empty.
 
+
 -- N/A; Sat, 23 Jul 2016 19:30:06 +0200
 
 
@@ -129,3 +130,5 @@ UNRELEASED
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Sun, 12 Jun 2016 15:20:40 +0200
+
+
