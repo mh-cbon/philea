@@ -1,0 +1,26 @@
+{
+  "product": "philea",
+  "company": "mh-cbon",
+  "license": "LICENSE",
+  "upgrade-code": "2E3B7211-BEF1-49F8-8FFB-F35C57D9F394",
+  "files": {
+    "guid": "7D96CA47-2525-492B-8F57-530ADEDA39A5",
+    "items": [
+      "philea.exe"
+    ]
+  },
+  "env": {
+    "guid": "0F9B1980-8D01-429C-9B83-C2D9B04E94EA",
+    "vars": [
+      {
+        "name": "PATH",
+        "value": "[INSTALLDIR]",
+        "permanent": "no",
+        "system": "no",
+        "action": "set",
+        "part": "last"
+      }
+    ]
+  },
+  "shortcuts": {}
+}
