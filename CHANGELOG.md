@@ -1,5 +1,19 @@
 # Changelog - philea
 
+### 0.0.13
+
+__Changes__
+
+- changelog: fix date of 0.0.6 version
+- changelog: 0.0.12
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Sat 23 Jul 2016
+______________
+
 ### 0.0.12
 
 __Changes__
@@ -98,7 +112,7 @@ __Changes__
 
 - empty.
 
-Released by N/A, Sat 23 Jul 2016
+Released by mh-cbon, Sun 12 Jun 2016
 ______________
 
 ### 0.0.5
