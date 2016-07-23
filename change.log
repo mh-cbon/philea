@@ -1,4 +1,15 @@
 
+0.0.13
+
+  * changelog: fix date of 0.0.6 version
+  * changelog: 0.0.12
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Sat, 23 Jul 2016 19:41:59 +0200
+
+
+
 0.0.12
 
   * packaging: add rpm/deb/msi support
@@ -78,7 +89,7 @@
   * empty.
 
 
-  -- mh-cbon <mh-cbon@users.noreply.github.com>; Sun, 12 Jun 2016 15:42:10 +0200
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Sun, 12 Jun 2016 15:42:10 +0200
 
 
 
@@ -130,3 +141,5 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Sun, 12 Jun 2016 15:20:40 +0200
+
+
