@@ -1,8 +1,7 @@
 
 0.0.13
 
-  * changelog: fix date of 0.0.6 version
-  * changelog: 0.0.12
+  * changelog: fix rpm packaging build (changelog was wrong)
 
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
@@ -141,5 +140,3 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Sun, 12 Jun 2016 15:20:40 +0200
-
-
