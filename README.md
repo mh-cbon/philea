@@ -2,6 +2,8 @@
 
 Apply commands on globbed files
 
+This tool is part of the [go-github-release workflow](https://github.com/mh-cbon/go-github-release)
+
 ## Install
 
 Pick an msi package [here](https://github.com/mh-cbon/philea/releases)!
