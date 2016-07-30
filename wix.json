@@ -22,5 +22,11 @@
       }
     ]
   },
-  "shortcuts": {}
+  "shortcuts": {},
+  "choco": {
+    "description": "Apply commands on globbed files",
+    "project-url": "https://github.com/mh-cbon/philea",
+    "tags": "",
+    "license-url": "https://github.com/mh-cbon/philea/blob/master/LICENSE"
+  }
 }

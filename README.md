@@ -6,7 +6,17 @@ Apply commands on globbed files
 
 Pick an msi package [here](https://github.com/mh-cbon/philea/releases)!
 
-__deb/rpm__
+__deb/ubuntu/rpm repositories__
+
+```sh
+wget -O - https://raw.githubusercontent.com/mh-cbon/latest/master/source.sh \
+| GH=mh-cbon/philea sh -xe
+# or
+curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/source.sh \
+| GH=mh-cbon/philea sh -xe
+```
+
+__deb/ubuntu/rpm packages__
 
 ```sh
 curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
@@ -15,6 +25,12 @@ curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 wget -q -O - --no-check-certificate \
 https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 | GH=mh-cbon/philea sh -xe
+```
+
+__chocolatey__
+
+```sh
+choco install philea -y
 ```
 
 __go__
