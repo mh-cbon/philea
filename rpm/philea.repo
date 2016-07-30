@@ -1,0 +1,6 @@
+[philea]
+name=Apply commands on globbed files
+baseurl=https://mh-cbon.github.io/philea/rpm/$basearch/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
