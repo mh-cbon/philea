@@ -1,4 +1,14 @@
 
+0.0.14
+
+  * packaging: add choco package, add deb/rpm repositories
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Sat, 30 Jul 2016 03:05:17 +0200
+
+
+
 0.0.13
 
   * changelog: fix rpm packaging build (changelog was wrong)
@@ -140,3 +150,5 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Sun, 12 Jun 2016 15:20:40 +0200
+
+
