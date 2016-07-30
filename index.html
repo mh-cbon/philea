@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Philea by mh-cbon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Philea</h1>
+      <h2 class="project-tagline">Apply commands on globbed files</h2>
+      <a href="https://github.com/mh-cbon/philea" class="btn">View on GitHub</a>
+      <a href="https://github.com/mh-cbon/philea/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/mh-cbon/philea/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="philea" class="anchor" href="#philea" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Philea</h1>
+
+<p>Apply commands on globbed files</p>
+
+<p>This tool is part of the <a href="https://github.com/mh-cbon/go-github-release">go-github-release workflow</a></p>
+
+<h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h2>
+
+<p>Pick an msi package <a href="https://github.com/mh-cbon/philea/releases">here</a>!</p>
+
+<p><strong>deb/ubuntu/rpm repositories</strong></p>
+
+<div class="highlight highlight-source-shell"><pre>wget -O - https://raw.githubusercontent.com/mh-cbon/latest/master/source.sh \
+<span class="pl-k">|</span> GH=mh-cbon/philea sh -xe
+<span class="pl-c"># or</span>
+curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/source.sh \
+<span class="pl-k">|</span> GH=mh-cbon/philea sh -xe</pre></div>
+
+<p><strong>deb/ubuntu/rpm packages</strong></p>
+
+<div class="highlight highlight-source-shell"><pre>curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
+<span class="pl-k">|</span> GH=mh-cbon/philea sh -xe
+<span class="pl-c"># or</span>
+wget -q -O - --no-check-certificate \
+https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
+<span class="pl-k">|</span> GH=mh-cbon/philea sh -xe</pre></div>
+
+<p><strong>chocolatey</strong></p>
+
+<div class="highlight highlight-source-shell"><pre>choco install philea -y</pre></div>
+
+<p><strong>go</strong></p>
+
+<div class="highlight highlight-source-shell"><pre>mkdir -p <span class="pl-smi">$GOPATH</span>/src/github.com/mh-cbon
+<span class="pl-c1">cd</span> <span class="pl-smi">$GOPATH</span>/src/github.com/mh-cbon
+git clone https://github.com/mh-cbon/philea.git
+<span class="pl-c1">cd</span> philea
+glide install
+go install</pre></div>
+
+<h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h1>
+
+<div class="highlight highlight-source-shell"><pre>Philea - Apply commands on globbed files
+
+Usage:
+  philea [options] <span class="pl-k">&lt;</span>cmds<span class="pl-k">&gt;</span>...
+  philea -q <span class="pl-k">|</span> --quiet
+  philea -h <span class="pl-k">|</span> --help
+  philea -v <span class="pl-k">|</span> --version
+
+Options:
+  -h --help               Show this screen.
+  -v --version            Show version.
+  -q --quiet              Less verbose.
+  -e --exclude pattern    Exclude files from being processed [default: <span class="pl-k">*</span>vendor/<span class="pl-k">*</span>].
+  -p --pattern pattern    Which kind of files to process [default: <span class="pl-k">**</span>/<span class="pl-k">*</span>.go].
+  -C --change-dir         Change current working directory.
+  -S --series             Execute process <span class="pl-k">in</span> series instead of parallel.
+  -d --dry                Show commands only, <span class="pl-k">do</span> not run anything.
+  -s --short              Shorter display, wihtout formatting.
+
+Notes:
+  cmd can contain
+    %s, it will be replaced by the current file path.
+    %d, it will be replaced by the path of the directory of the current file.
+    %dname, it will be replaced by the directory name of the current file.
+    %f, it will be replaced by the name of the current file.
+    %fname, it will be replaced by the name of the current file minus its extension.
+  philea will process all files and all commands and <span class="pl-k">return</span> an <span class="pl-c1">exit</span> code=1 <span class="pl-k">if</span> any fails.
+
+Examples:
+  philea <span class="pl-s"><span class="pl-pds">"</span>cat %s<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>grep t %s<span class="pl-pds">"</span></span>
+    It will process all go files, except those <span class="pl-k">in</span> vendors, and apply
+    cat, <span class="pl-k">then</span> grep an each file.
+  philea <span class="pl-s"><span class="pl-pds">"</span>cat %s<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>grep t %s<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>ls -al %d<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>echo '%dname'<span class="pl-pds">"</span></span></pre></div>
+
+<h1>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h1>
+
+<div class="highlight highlight-source-shell"><pre>$ philea --pattern main.go <span class="pl-s"><span class="pl-pds">"</span>echo %fname<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>echo %f<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>echo %dname<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>echo %d<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>echo %s<span class="pl-pds">"</span></span>
+<span class="pl-c1">echo</span> ./: ./
+<span class="pl-c1">echo</span> main.go: main.go
+<span class="pl-c1">echo</span> main: main
+<span class="pl-c1">echo</span> ./main.go: ./main.go
+<span class="pl-c1">echo</span> .: <span class="pl-c1">.</span></pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/mh-cbon/philea">Philea</a> is maintained by <a href="https://github.com/mh-cbon">mh-cbon</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
