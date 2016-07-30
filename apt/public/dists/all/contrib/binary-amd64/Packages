@@ -1,0 +1,36 @@
+Package: philea
+Priority: extra
+Section: unknown
+Installed-Size: 2.7 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: amd64
+Source: philea
+Version: 0.0.14
+Filename: pool/contrib/p/philea/philea-0.0.14_amd64.deb
+Size: 736030
+MD5sum: ebeb2125240f0de16b3c7883be055ab9
+SHA1: 7a24813376dac74b333219ab6d4789f60164b8d4
+SHA256: 839952f5819661fb8dfc3b638328c4f1368e3a6b2eebe41e556d5cb22934dc91
+SHA512: 63edeb744ab26073940e95f4fcd0145cf2a978142a93ea103b41369d8b8ab200bab6df48212f14cefccbc4c269d063c49b60274d44f2be9dd2fa32e95bf40e28
+Description: Apply commands on globbed files
+Package-Type: deb
+Homepage: http://github.com/mh-cbon/philea
+
+Package: philea
+Priority: extra
+Section: unknown
+Installed-Size: 2.7 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: amd64
+Source: philea
+Version: 0.0.13
+Filename: pool/contrib/p/philea/philea-0.0.13_amd64.deb
+Size: 735776
+MD5sum: 48e2aa054fbad03b23db0c1d801f1b14
+SHA1: 75047ddf9f5e8fa9aa5d709531a5e8a6f6132d61
+SHA256: 01e5e1bde4380b584f7a1c35e21d12b0a186134ae1259447f409baed64439f21
+SHA512: 1e307bfc4e0b7fe33fdccda78e1f57947a24244fa3c266cf5c9ce186941950dc930151046c10eac1944f23321dfb0fe436827152d3fc3e167265cd615c612e6f
+Description: Apply commands on globbed files
+Homepage: http://github.com/mh-cbon/philea
+Package-Type: deb
+
